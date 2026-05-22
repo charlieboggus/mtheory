@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            artifact: 'release/*.dmg'
+          - os: windows-latest
+            artifact: 'release/*.exe'
+          - os: ubuntu-latest
+            artifact: 'release/*.AppImage'
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Type check
+        run: pnpm exec tsc -b
+
+      - name: Build web
+        run: pnpm exec vite build
+
+      - name: Package
+        run: pnpm exec electron-builder --publish never
+        env:
+          # Skips macOS code signing — remove and add CSC_LINK / CSC_KEY_PASSWORD
+          # secrets if you have a Developer ID certificate.
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.artifact }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
