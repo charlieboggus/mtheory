@@ -8,11 +8,12 @@ import { ChordTable } from '@/components/ChordTable'
 import { ScaleInfo } from '@/components/ScaleInfo'
 import { ChordFingerings } from '@/components/ChordFingerings'
 import { IntervalExplorer } from '@/components/IntervalExplorer'
+import { ArpeggioExplorer } from '@/components/ArpeggioExplorer'
 import { resolveScale, ALL_ROOTS, SCALE_NAMES } from '@/theory/scales'
 import type { NoteName, ScaleResult } from '@/theory/types'
 import { cn } from '@/lib/utils'
 
-type View = 'scale' | 'fingerings' | 'intervals'
+type View = 'scale' | 'fingerings' | 'arpeggios' | 'intervals'
 
 function randomScale(): [NoteName, string] {
   const root = ALL_ROOTS[Math.floor(Math.random() * ALL_ROOTS.length)]
@@ -57,6 +58,10 @@ export default function App() {
   const [fingeringRoot,    setFingeringRoot]    = useState<NoteName>('C')
   const [fingeringQuality, setFingeringQuality] = useState<string>('')
 
+  // ── Arpeggio explorer ────────────────────────────────────────────────────────
+  const [arpeggioRoot,    setArpeggioRoot]    = useState<NoteName>('C')
+  const [arpeggioQuality, setArpeggioQuality] = useState<string>('')
+
   // ── Interval explorer ────────────────────────────────────────────────────────
   const [intervalRoot,      setIntervalRoot]      = useState<NoteName>('C')
   const [intervalSemitones, setIntervalSemitones] = useState<number>(7)
@@ -89,8 +94,9 @@ export default function App() {
           style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         >
           {([
-            { id: 'scale',     label: 'Scale Explorer'    },
-            { id: 'fingerings', label: 'Chord Diagrams'   },
+            { id: 'scale',      label: 'Scale Explorer'    },
+            { id: 'fingerings', label: 'Chord Diagrams'    },
+            { id: 'arpeggios',  label: 'Arpeggios'         },
             { id: 'intervals',  label: 'Interval Explorer' },
           ] as { id: View; label: string }[]).map(({ id, label }) => (
             <button
@@ -171,6 +177,18 @@ export default function App() {
               quality={fingeringQuality}
               onRootChange={setFingeringRoot}
               onQualityChange={setFingeringQuality}
+            />
+          </div>
+        )}
+
+        {/* ── Arpeggio Explorer ───────────────────────────────────────────── */}
+        {view === 'arpeggios' && (
+          <div className="flex-1 overflow-hidden">
+            <ArpeggioExplorer
+              root={arpeggioRoot}
+              quality={arpeggioQuality}
+              onRootChange={setArpeggioRoot}
+              onQualityChange={setArpeggioQuality}
             />
           </div>
         )}

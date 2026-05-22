@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import type { ScaleResult, IntervalDegree } from '@/theory/types'
+import type { ScaleResult, IntervalDegree, FretNote } from '@/theory/types'
 import { buildFretboardMap } from '@/theory/scales'
 
 interface FretboardSVGProps {
-  scale: ScaleResult
+  scale?: ScaleResult
+  map?: Map<string, FretNote | null>
   frets?: number
 }
 
@@ -24,8 +25,12 @@ const STRING_NAMES = ['e', 'B', 'G', 'D', 'A', 'E']
 const FRET_MARKERS = new Set([3, 5, 7, 9, 12])
 const DOUBLE_MARKERS = new Set([12])
 
-export function FretboardSVG({ scale, frets = 12 }: FretboardSVGProps) {
-  const fretboardMap = useMemo(() => buildFretboardMap(scale, frets), [scale, frets])
+export function FretboardSVG({ scale, map: mapProp, frets = 12 }: FretboardSVGProps) {
+  const computedMap = useMemo(
+    () => scale ? buildFretboardMap(scale, frets) : new Map<string, FretNote | null>(),
+    [scale, frets]
+  )
+  const fretboardMap = mapProp ?? computedMap
 
   const PADDING_LEFT   = 40
   const PADDING_RIGHT  = 20
