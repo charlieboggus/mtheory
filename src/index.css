@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark theme only — this is a desktop tool, not a website */
+    --background: 0 0% 6%;
+    --foreground: 0 0% 92%;
+
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 92%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 12%;
+    --ring: 38 80% 55%;
+
+    --primary: 38 80% 55%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 0 0% 75%;
+
+    --muted: 0 0% 11%;
+    --muted-foreground: 0 0% 48%;
+
+    --accent: 0 0% 13%;
+    --accent-foreground: 0 0% 92%;
+
+    --radius: 0.4rem;
+
+    /* Note colors — semantic, used throughout fretboard + chord diagrams */
+    --note-root:    38 90% 58%;   /* amber — root note */
+    --note-third:   168 60% 50%;  /* teal — thirds */
+    --note-fifth:   210 60% 60%;  /* blue — fifths */
+    --note-seventh: 280 50% 65%;  /* violet — sevenths */
+    --note-scale:   0 0% 72%;     /* gray — other scale tones */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent text selection on drag — desktop app feel */
+    user-select: none;
+  }
+
+  /* Allow selection in inputs and copyable text */
+  input, textarea, [data-selectable] {
+    user-select: text;
+  }
+
+  /* Monospace for all note names, chord symbols, intervals */
+  .font-theory {
+    font-family: 'DM Mono', 'JetBrains Mono', monospace;
+  }
+
+  /* Hide scrollbar but keep scroll */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

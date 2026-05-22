@@ -1,0 +1,229 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+
+  <!-- ========================= -->
+  <!-- BACKGROUND -->
+  <!-- ========================= -->
+
+  <radialGradient id="bg" cx="50%" cy="30%" r="90%">
+    <stop offset="0%" stop-color="#273BFF"/>
+    <stop offset="45%" stop-color="#5B2EFF"/>
+    <stop offset="100%" stop-color="#070B1A"/>
+  </radialGradient>
+
+  <linearGradient id="bgTint" x1="0" y1="0" x2="1024" y2="1024">
+    <stop offset="0%" stop-color="#7CF7FF" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#FF5AEF" stop-opacity="0.14"/>
+  </linearGradient>
+
+  <!-- ========================= -->
+  <!-- ORBIT GRADIENTS -->
+  <!-- ========================= -->
+
+  <linearGradient id="ring1" x1="220" y1="180" x2="760" y2="820">
+    <stop offset="0%" stop-color="#7DF9FF"/>
+    <stop offset="100%" stop-color="#8B5CFF"/>
+  </linearGradient>
+
+  <linearGradient id="ring2" x1="300" y1="250" x2="820" y2="780">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="100%" stop-color="#BFD3FF"/>
+  </linearGradient>
+
+  <linearGradient id="core" x1="380" y1="320" x2="650" y2="700">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="100%" stop-color="#CFE1FF"/>
+  </linearGradient>
+
+  <!-- ========================= -->
+  <!-- FILTERS -->
+  <!-- ========================= -->
+
+  <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow
+      dx="0"
+      dy="35"
+      stdDeviation="40"
+      flood-color="#000000"
+      flood-opacity="0.42"/>
+  </filter>
+
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="45"/>
+  </filter>
+
+  <filter id="glass">
+    <feGaussianBlur stdDeviation="16"/>
+  </filter>
+
+  <!-- ========================= -->
+  <!-- MASK -->
+  <!-- ========================= -->
+
+  <clipPath id="clip">
+    <rect x="36" y="36" width="952" height="952" rx="220"/>
+  </clipPath>
+
+</defs>
+
+<!-- ================================================= -->
+<!-- BACKGROUND -->
+<!-- ================================================= -->
+
+<g clip-path="url(#clip)">
+
+  <rect
+    x="36"
+    y="36"
+    width="952"
+    height="952"
+    rx="220"
+    fill="url(#bg)"/>
+
+  <!-- Ambient glow blobs -->
+  <circle
+    cx="270"
+    cy="250"
+    r="260"
+    fill="#5CE1FF"
+    opacity="0.20"
+    filter="url(#glow)"/>
+
+  <circle
+    cx="810"
+    cy="790"
+    r="280"
+    fill="#FF5EF1"
+    opacity="0.16"
+    filter="url(#glow)"/>
+
+  <circle
+    cx="530"
+    cy="520"
+    r="420"
+    fill="#7B61FF"
+    opacity="0.10"
+    filter="url(#glow)"/>
+
+  <rect
+    x="36"
+    y="36"
+    width="952"
+    height="952"
+    rx="220"
+    fill="url(#bgTint)"/>
+
+</g>
+
+<!-- ================================================= -->
+<!-- ABSTRACT ORBITAL FORM -->
+<!-- ================================================= -->
+
+<g filter="url(#shadow)">
+
+  <!-- BACK GLOW -->
+  <circle
+    cx="512"
+    cy="512"
+    r="180"
+    fill="#7BE7FF"
+    opacity="0.16"
+    filter="url(#glow)"/>
+
+  <!-- OUTER ORBIT -->
+  <path
+    d="
+      M255 500
+      C255 330 390 210 540 210
+      C720 210 840 330 840 500
+      C840 670 720 814 520 814
+      C350 814 210 690 210 520
+      C210 420 255 500 255 500Z
+    "
+    stroke="url(#ring1)"
+    stroke-width="82"
+    stroke-linecap="round"
+    opacity="0.96"/>
+
+  <!-- INNER TWIST -->
+  <path
+    d="
+      M360 320
+      C470 220 670 240 760 390
+      C835 520 790 700 610 760
+      C430 820 280 700 280 540
+      C280 430 320 360 360 320Z
+    "
+    stroke="url(#ring2)"
+    stroke-width="54"
+    stroke-linecap="round"
+    opacity="0.96"/>
+
+  <!-- CENTER CORE -->
+  <circle
+    cx="512"
+    cy="512"
+    r="132"
+    fill="url(#core)"/>
+
+  <!-- Core inner -->
+  <circle
+    cx="512"
+    cy="512"
+    r="72"
+    fill="#7A5CFF"
+    opacity="0.22"/>
+
+  <!-- SPECULAR HIGHLIGHTS -->
+  <path
+    d="
+      M340 330
+      C430 250 600 250 710 340
+    "
+    stroke="white"
+    stroke-opacity="0.60"
+    stroke-width="16"
+    stroke-linecap="round"/>
+
+  <path
+    d="
+      M290 520
+      C290 380 390 280 520 260
+    "
+    stroke="white"
+    stroke-opacity="0.14"
+    stroke-width="10"
+    stroke-linecap="round"/>
+
+</g>
+
+<!-- ================================================= -->
+<!-- GLASS SHEEN -->
+<!-- ================================================= -->
+
+<path
+  d="
+    M120 170
+    C240 40 470 20 730 120
+    C540 120 330 210 140 400
+    C90 310 90 230 120 170Z
+  "
+  fill="white"
+  opacity="0.12"
+  filter="url(#glass)"/>
+
+<!-- ================================================= -->
+<!-- OUTER BORDER -->
+<!-- ================================================= -->
+
+<rect
+  x="40"
+  y="40"
+  width="944"
+  height="944"
+  rx="216"
+  stroke="rgba(255,255,255,0.14)"
+  stroke-width="6"/>
+
+</svg>
